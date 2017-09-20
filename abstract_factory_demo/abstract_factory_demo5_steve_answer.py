@@ -29,48 +29,48 @@ from abc import ABCMeta, abstractmethod
 
 class Factory(metaclass=ABCMeta):
     @abstractmethod
-    def create_Socket(self):
+    def create_socket(self):
         pass
 
     @abstractmethod
-    def create_Pipe(self):
+    def create_pipe(self):
         pass
 
     @abstractmethod
-    def create_Thread(self):
+    def create_thread(self):
         pass
 
 
-class UnixFactory(Factory):
-    def create_Socket(self):
+class Unix_Factory(Factory):
+    def create_socket(self):
         print("create_unix_socket:")
 
-    def create_Pipe(self):
+    def create_pipe(self):
         print("create_unix_pipe:")
 
-    def create_Thread(self):
+    def create_thread(self):
         print("create_unix_thread:")
 
 
 class VmsFactory(Factory):
-    def create_Socket(self):
+    def create_socket(self):
         print("create_vms_socket:")
 
-    def create_Pipe(self):
+    def create_pipe(self):
         print("create_vms_pipe:")
 
-    def create_Thread(self):
+    def create_thread(self):
         print("create_vms_thread:")
 
 
 class NtFactory(Factory):
-    def create_Socket(self):
+    def create_socket(self):
         print("create_nt_socket:")
 
-    def create_Pipe(self):
+    def create_pipe(self):
         print("create_nt_pipe:")
 
-    def create_Thread(self):
+    def create_thread(self):
         print("create_nt_thread:")
 
 
@@ -79,11 +79,11 @@ def do_one_lane_ipc(factory):
 
 
 def do_two_lane_ipc(factory):
-   factory.create_pipe
+   factory.create_pipe()
 
 
 def do_parallel_processing(factory):
-    factory.create_Thread
+    factory.create_thread()
 
 
 if __name__ == "__main__":

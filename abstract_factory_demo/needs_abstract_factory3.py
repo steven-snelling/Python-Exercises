@@ -57,27 +57,46 @@ get rid of the constants (too much to remember)
 get rid of the case statements (too difficult to maintain)
 
 """
-XHTML = 1
-HTML = 2
 
 
-def markup(type, text):
-    start_tag = end_tag = None
-    if type == XHTML:
-        start_tag = StartParaTag()
-    elif type == HTML:
-        start_tag = StartP()
-    if type == XHTML:
-        end_tag = EndParaTag()
-    elif type == HTML:
-        end_tag = End()
+class BaseFactory(metaclass=ABCMeta):
+    @abstractmethod
+    def make_start(self):
+        pass
+
+    @abstractmethod
+    def make_end(self):
+        pass
+
+
+class XHTMLFactory(BaseFactory):
+
+    def make_start(self):
+        return StartParaTag()
+
+    def make_end(self):
+        return EndParaTag()
+
+
+class HTMLFactory(BaseFactory):
+
+    def make_start(self):
+        return StartP()
+
+    def make_end(self):
+        return End()
+
+
+def markup(factory, text):
+    start_tag = factory.make_start()
+    end_tag = factory.make_end()
     print(start_tag.show() + text + end_tag.show())
 
 
 if __name__ == "__main__":
     print("***xhtml***")
-    markup(XHTML, "This is a test")
-    markup(XHTML, "This is a another test")
+    markup(XHTMLFactory(), "This is a test")
+    markup(XHTMLFactory(), "This is a another test")
     print("***html***")
-    markup(HTML, "This is a test")
-    markup(HTML, "This is a another test")
+    markup(HTMLFactory(), "This is a test")
+    markup(HTMLFactory(), "This is a another test")
