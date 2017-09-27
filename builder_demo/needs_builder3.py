@@ -80,11 +80,18 @@ class Writer(object):
         self.builder.add_head("Once upon a time...")
         self.builder.add_para("There was a student doing a programming test")
         self.builder.add_para("It was hard")
-        return self.builder.get_result()
 
 if __name__ == "__main__":
-    print(Writer(HTMLBuilder()).write())
-    print(Writer(JSONBuilder()).write())
+    builder1 = HTMLBuilder()
+    director = Writer(builder1)
+    director.write()
+    print(builder1.get_result())
+
+    builder2 = JSONBuilder()
+    director = Writer(builder2)
+    director.write()
+    print(builder2.get_result())
+
 
 
     # doc = HTMLDoc()
