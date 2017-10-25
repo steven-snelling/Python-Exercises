@@ -70,5 +70,5 @@ if __name__ == '__main__':
     # we're committing to the single concrete ADAPTEE..
     # Can't reuse ADAPTER :(
 
-    # rocket = FlyingCarAdapter()
-    # customer(rocket)
+    rocket = FlyingCarAdapter()
+    customer(rocket)
