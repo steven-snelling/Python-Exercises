@@ -1,40 +1,42 @@
 """ Example of BEFORE applying composite pattern """
+from abc import ABCMeta, abstractmethod
 
 
-class Primitive(object):
+class Component(metaclass=ABCMeta):
     def __init__(self, val):
         self.value = val
+
+    def add(self, component):
+        pass
+
+    @abstractmethod
+    def traverse(self):
+        pass
+
+
+class Primitive(Component):
+    def __init__(self, val):
+        Component.__init__(self, val)
         self.type = "LEAF"
 
-    def report_type(self):
-        return self.type
-
-    def print_val(self):
-        # result = str(self.value) + "\t" + self.type
-        # print('\t' + result)
+    def traverse(self):
         print('\t{}\t{}'.format(self.value, self.type))
 
 
-class Composite(object):
+class Composite(Component):
     def __init__(self, val):
-        self.value = val
+        Component.__init__(self, val)
         self.type = "INTERIOR"
         self.children = []
 
-    def report_type(self):
-        return self.type
-
-    def add(self, composite):
-        self.children.append(composite)
+    def add(self, component):
+        self.children.append(component)
 
     def traverse(self):
         # print(str(self.value) + "\t" + self.type)
         print('{}\t{}'.format(self.value, self.type))
         for eachChild in self.children:
-            if eachChild.report_type() == "LEAF":
-                eachChild.print_val()
-            elif eachChild.report_type() == "INTERIOR":
-                eachChild.traverse()
+            eachChild.traverse()
 
 if __name__ == '__main__':
     first = Composite(1)
